@@ -1,0 +1,122 @@
+// Mixins
+
+@mixin clearFix {
+	zoom: 1;
+
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+
+	&:after {
+	    clear: both;
+	}
+}
+
+@mixin hyphenate {
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+
+@mixin transition($params...) {
+	transition: $params;
+	-moz-transition: $params;
+	-webkit-transition: $params;
+	-o-transition: $params;
+}
+
+@mixin transitionDelay($param) {
+	-webkit-transition-delay: $param;
+	-moz-transition-delay: $param;
+	-o-transition-delay: $param;
+	-ms-transition-delay: $param;
+	transition-delay: $param;
+}
+
+@mixin borderRadius($param) {
+	-webkit-border-radius: $param;
+	-moz-border-radius: $param;
+	border-radius: $param;
+}
+
+@mixin boxShadow($params...) {
+	-webkit-box-shadow: $params;
+	-moz-box-shadow: $params;
+	box-shadow: $params;
+}
+
+@mixin imageBlock($width, $height, $background, $inlineBlock: false) {
+	width: $width;
+	height: 0px;
+	background: $background;
+	margin: 0;
+	padding: $height 0 0;
+	overflow: hidden;
+	text-indent: -99999em;
+	outline: none !important;
+
+	@if $inlineBlock
+		{ @extend %inlineBlock; }
+	@else
+		{ display: block; }
+}
+
+@mixin childrenFontColor($color) {
+	color: $color;
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	ol,
+	ul,
+	li,
+	a,
+	label {
+		color: $color;
+	}
+}
+
+// Functions
+
+@function em($target, $base: 16) {
+	@return ($target / $base) * 1em;
+}
+
+// Common Extensions
+
+%borderBox {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+%inlineBlock {
+	display: inline-block;
+
+	.lt-ie8 & {
+		*display: inline;
+		zoom: 1;
+	}
+}
+
+// helpers 
+
+.visually-hidden {
+	visibility: hidden;
+	display: block;
+	height: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.unstyled {
+	list-style: none;
+	padding: 0;
+	margin-left: 0;
+}
